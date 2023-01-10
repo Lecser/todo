@@ -1,0 +1,11 @@
+.penIcon {
+    @apply absolute bg-neutral-200 top-1 right-9 flex h-6 w-6 items-center justify-center rounded opacity-75 transition duration-200 ease-in-out hover:bg-neutral-300
+}
+
+.trashIcon {
+    @apply absolute bg-neutral-200 top-1 right-2 flex h-6 w-6 items-center justify-center rounded opacity-75 transition duration-200 ease-in-out hover:bg-neutral-300
+}
+
+.taskWrapper {
+    @apply relative break-all p-1 break-all mb-2 flex h-full w-full items-center justify-start rounded bg-neutral-100 pl-1.5 shadow transition duration-200 ease-in-out hover:cursor-pointer hover:bg-neutral-200
+}

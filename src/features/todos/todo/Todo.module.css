@@ -1,0 +1,7 @@
+.titleWrapper {
+    @apply flex h-10 justify-between cursor-pointer
+}
+
+.todoContainer{
+    @apply w-64 rounded border bg-white p-1.5 shadow-md
+}
