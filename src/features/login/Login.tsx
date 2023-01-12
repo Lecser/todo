@@ -6,6 +6,9 @@ import { useAppDispatch } from '../../components/hooks/useAppDispatch'
 import { loginUser } from './asyncActions'
 import { useAppSelector } from '../../components/hooks/useAppSelector'
 import { ErrorAlert } from '../../components/ErrorAlert/ErrorAlert'
+import { getAppError } from '../../app/selectors/getAppError'
+import { getAppStatus } from '../../app/selectors/getAppStatus'
+import { PuffLoader } from 'react-spinners'
 
 interface IForm {
   email: string
@@ -15,7 +18,9 @@ interface IForm {
 
 export const Login = () => {
   const dispatch = useAppDispatch()
-  const error = useAppSelector(state => state.app.error)
+  const error = useAppSelector(getAppError)
+  const appStatus = useAppSelector(getAppStatus)
+
   const Schema = yup.object({
     email: yup
       .string()
@@ -48,7 +53,7 @@ export const Login = () => {
 
   return (
     <div className={'flex min-h-screen w-screen items-center justify-center'}>
-      {error && <ErrorAlert errorMessage={error} />}
+      <ErrorAlert />
       <form
         className={
           'flex h-80 w-80 flex-col items-center justify-center gap-5 rounded-2xl bg-white p-4 shadow-lg'
@@ -92,10 +97,14 @@ export const Login = () => {
         </div>
         <button
           className={
-            'h-8 w-28 rounded-2xl bg-slate-700 text-white transition-opacity duration-500 ease-in-out hover:opacity-90'
+            'flex h-8 w-28 items-center justify-center rounded-2xl bg-slate-700 text-white transition-opacity duration-500 ease-in-out hover:opacity-90'
           }
         >
-          Sign in
+          {appStatus === 'loading' ? (
+            <PuffLoader color={'white'} size={'26'} />
+          ) : (
+            'Sign in'
+          )}
         </button>
       </form>
     </div>

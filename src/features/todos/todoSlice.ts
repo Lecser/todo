@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { TodosResponse } from './api/todoAPI'
+
 import {
   addNewTodo,
   fetchTodos,
   removeTodo,
   updateTodoTitle
 } from './asyncActions'
+import { TodosResponse } from './api/todosModel'
 
 const initialState = [] as TodosResponse[]
 
@@ -27,7 +28,7 @@ export const todoSlice = createSlice({
         state[index].title = action.payload.newTitle
       })
       .addCase(addNewTodo.fulfilled, (state, action) => {
-        state.push({
+        state.unshift({
           ...action.payload?.newTodo
         })
       })
@@ -36,4 +37,3 @@ export const todoSlice = createSlice({
         if (index !== -1) state.splice(index, 1)
       })
 })
-export const {} = todoSlice.actions

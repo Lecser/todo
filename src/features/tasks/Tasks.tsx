@@ -3,8 +3,9 @@ import { EditableSpan } from '../../components/EditableSpan/EditableSpan'
 import { tasksAsyncActions } from './asyncActions'
 import { useActions } from '../../components/hooks/useActions'
 import { Dropdown } from '../../components/Dropdown/Dropdown'
-import { TaskStatuses } from './api/tasksAPI'
+
 import classes from './Tasks.module.css'
+import { TaskStatuses } from './api/tasksModel'
 
 interface TaskProps {
   title: string
@@ -31,7 +32,9 @@ export const Tasks: FC<TaskProps> = props => {
       : status === TaskStatuses.Completed
       ? classes.task + ' ' + classes.taskDoneStatus
       : classes.task + ' ' + classes.taskInProgressStatus
+
   const [visible, setVisible] = useState(false)
+
   return (
     <div
       onMouseEnter={() => setVisible(true)}

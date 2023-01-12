@@ -3,10 +3,11 @@ import { FC, PropsWithChildren } from 'react'
 
 import { useAppSelector } from '../../../../components/hooks/useAppSelector'
 import { AppPaths } from '../AppRouter'
+import { getIsAuth } from '../../../selectors/getIsAuth'
 
 export const RequiredAuth: FC<PropsWithChildren> = props => {
   const { children } = props
-  const isAuth = useAppSelector(state => state.app.isAuth)
+  const isAuth = useAppSelector(getIsAuth)
 
   if (isAuth) return <>{children}</>
 

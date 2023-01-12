@@ -1,13 +1,7 @@
 import { AxiosResponse } from 'axios'
 import { instance } from '../../../axios'
-import { Iresponse } from '../../login/api/authAPI'
-
-export interface TodosResponse {
-  id: string
-  title: string
-  addedDate: string
-  order: number
-}
+import { Iresponse } from '../../../utils/model'
+import { TodosResponse } from './todosModel'
 
 export const todoAPI = {
   fetchTodos() {

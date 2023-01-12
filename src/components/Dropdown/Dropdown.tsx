@@ -9,7 +9,7 @@ import { FC, Fragment } from 'react'
 import { useActions } from '../hooks/useActions'
 import { tasksAsyncActions } from '../../features/tasks/asyncActions'
 import { todosAsyncActions } from '../../features/todos/asyncActions'
-import { TaskStatuses } from '../../features/tasks/api/tasksAPI'
+import { TaskStatuses } from '../../features/tasks/api/tasksModel'
 
 interface DropdownProps {
   todoId: string

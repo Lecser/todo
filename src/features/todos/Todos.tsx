@@ -5,8 +5,8 @@ import { EditableSpan } from '../../components/EditableSpan/EditableSpan'
 import { useActions } from '../../components/hooks/useActions'
 import { todosAsyncActions } from './asyncActions'
 import { getTodos } from './selectors/getTodos'
-import toast, { Toaster } from 'react-hot-toast'
 import { ErrorAlert } from '../../components/ErrorAlert/ErrorAlert'
+import { getAppError } from '../../app/selectors/getAppError'
 
 export const Todos = () => {
   const todos = useAppSelector(getTodos)
@@ -21,20 +21,18 @@ export const Todos = () => {
     todosActions.addNewTodo(title)
   }
 
-  const error = useAppSelector(state => state.app.error)
+  const error = useAppSelector(getAppError)
 
   return (
     <>
-      {error && <ErrorAlert errorMessage={error} />}
+      <ErrorAlert />
       <div
         className={
           'min-h-screen w-screen bg-gradient-to-r from-green-400 via-lime-300 to-yellow-300'
         }
       >
         <div
-          className={
-            'container mx-auto flex flex-wrap items-start gap-3 py-16 px-16'
-          }
+          className={'container mx-auto flex flex-wrap items-start gap-3 py-16'}
         >
           {todos.map(el => {
             return <Todo key={el.id} title={el.title} todoId={el.id} />

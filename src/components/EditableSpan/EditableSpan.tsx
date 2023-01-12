@@ -7,9 +7,10 @@ import {
 } from 'react'
 import { TextField } from '../TextField/TextField'
 import { ReactComponent as PlusIcon } from '../../assets/Plus.svg'
-import { TaskStatuses } from '../../features/tasks/api/tasksAPI'
+
 import { ReactComponent as InProgressIcon } from '../../assets/InProggesIcon.svg'
 import { ReactComponent as DoneIcon } from '../../assets/DoneIcon.svg'
+import { TaskStatuses } from '../../features/tasks/api/tasksModel'
 
 interface AddItemFormProps {
   onChange: (value: string) => void

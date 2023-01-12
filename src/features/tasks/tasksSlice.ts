@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { Tasks } from './api/tasksAPI'
 import {
   addNewTask,
   fetchTasks,
@@ -8,6 +7,7 @@ import {
   updateTaskTitle
 } from './asyncActions'
 import { fetchTodos } from '../todos/asyncActions'
+import { Tasks } from './api/tasksModel'
 
 interface initialState {
   [key: string]: Tasks[]
@@ -49,4 +49,3 @@ export const tasksSlice = createSlice({
       })
   }
 })
-export const { actions: tasksActions } = tasksSlice

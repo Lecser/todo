@@ -7,21 +7,19 @@ import {
 } from '../../utils/error-utils'
 import { AxiosError } from 'axios/index'
 
-import { Tasks, tasksAPI, UpdateTaskRequestPayload } from './api/tasksAPI'
-import { ThunkError } from '../../utils/models'
+import { ResultStatus, ThunkError } from '../../utils/model'
 import { RootState } from '../../app/providers/StoreProvider/config/store'
-import { ResultStatus } from '../login/api/authAPI'
-
-const { setAppStatus } = appActions
+import { Tasks, UpdateTaskRequestPayload } from './api/tasksModel'
+import { tasksAPI } from './api/tasksAPI'
 
 export const fetchTasks = createAsyncThunk<
   { tasks: Tasks[]; todoId: string },
   string,
   ThunkError
 >('tasks/fetchTasks', async (todoId, thunkAPI) => {
-  thunkAPI.dispatch(setAppStatus('loading'))
+  thunkAPI.dispatch(appActions.setAppStatus('loading'))
   try {
-    thunkAPI.dispatch(setAppStatus('succeeded'))
+    thunkAPI.dispatch(appActions.setAppStatus('succeeded'))
     const res = await tasksAPI.fetchTasks(todoId)
     const tasks = res.data.items
     return { tasks, todoId }
@@ -36,13 +34,13 @@ export const addNewTask = createAsyncThunk<
   ThunkError
 >('tasks/addNewTask', async (params, thunkAPI) => {
   const { todoId, title } = params
-  thunkAPI.dispatch(setAppStatus('loading'))
+  thunkAPI.dispatch(appActions.setAppStatus('loading'))
   try {
     const res = await tasksAPI.createTask(todoId, title)
     if (res.data.resultCode !== ResultStatus.OK) {
       return handleAsyncServerAppError(res.data, thunkAPI, false)
     } else {
-      thunkAPI.dispatch(setAppStatus('succeeded'))
+      thunkAPI.dispatch(appActions.setAppStatus('succeeded'))
       return res.data.data.item
     }
   } catch (e) {
@@ -56,13 +54,13 @@ export const removeTask = createAsyncThunk<
   ThunkError
 >('tasks/removeTask', async (params, thunkAPI) => {
   const { todoId, taskId } = params
-  thunkAPI.dispatch(setAppStatus('loading'))
+  thunkAPI.dispatch(appActions.setAppStatus('loading'))
   try {
     const res = await tasksAPI.removeTask(todoId, taskId)
     if (res.data.resultCode !== ResultStatus.OK) {
       return handleAsyncServerAppError(res.data, thunkAPI, false)
     } else {
-      thunkAPI.dispatch(setAppStatus('succeeded'))
+      thunkAPI.dispatch(appActions.setAppStatus('succeeded'))
       return { todoId, taskId }
     }
   } catch (e) {
@@ -92,13 +90,13 @@ export const updateTaskTitle = createAsyncThunk<
     ...model
   }
 
-  thunkAPI.dispatch(setAppStatus('loading'))
+  thunkAPI.dispatch(appActions.setAppStatus('loading'))
   try {
     const res = await tasksAPI.updateTask(todoId, taskId, updatedTaskData)
     if (res.data.resultCode !== ResultStatus.OK) {
       return handleAsyncServerAppError(res.data, thunkAPI, false)
     } else {
-      thunkAPI.dispatch(setAppStatus('succeeded'))
+      thunkAPI.dispatch(appActions.setAppStatus('succeeded'))
       return params
     }
   } catch (e) {

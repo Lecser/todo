@@ -1,11 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { authMe } from './asyncActions'
 
 interface Initial {
   isLoggedIn: boolean
+  isAuth: boolean
 }
 
 const initialState: Initial = {
-  isLoggedIn: false
+  isLoggedIn: false,
+  isAuth: false
 }
 
 export const authSlice = createSlice({
@@ -14,7 +17,16 @@ export const authSlice = createSlice({
   reducers: {
     setIsLoggedIn: (state, action: PayloadAction<boolean>) => {
       state.isLoggedIn = action.payload
+    },
+
+    setAuth: (state, action: PayloadAction<boolean>) => {
+      state.isAuth = action.payload
     }
-  }
+  },
+  extraReducers: builder =>
+    builder.addCase(authMe.fulfilled, state => {
+      state.isAuth = true
+    })
 })
-export const { setIsLoggedIn } = authSlice.actions
+
+export const { actions: authActions } = authSlice

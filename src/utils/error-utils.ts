@@ -1,7 +1,7 @@
-import { Iresponse } from '../features/login/api/authAPI'
 import { AxiosError } from 'axios'
 import { Dispatch } from '@reduxjs/toolkit'
 import { appActions } from '../app/appSlice'
+import { Iresponse } from './model'
 
 type ThunkAPIType = {
   dispatch: Dispatch
