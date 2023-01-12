@@ -1,7 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { authAPI, ResultStatus } from '../features/login/api/authAPI'
 import { setIsLoggedIn } from '../features/login/authSlice'
-import { handleAsyncServerNetworkError } from '../utils/error-utils'
+import {
+  handleAsyncServerAppError,
+  handleAsyncServerNetworkError
+} from '../utils/error-utils'
 import { AxiosError } from 'axios'
 
 interface Initial {
@@ -20,7 +23,9 @@ export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export const authMe = createAsyncThunk('app/authMe', async (_, thunkAPI) => {
   try {
     const res = await authAPI.authMe()
-    if (res.data.resultCode === ResultStatus.OK) {
+    if (res.data.resultCode !== ResultStatus.OK) {
+      return handleAsyncServerAppError(res.data, thunkAPI, false)
+    } else {
       thunkAPI.dispatch(setIsLoggedIn(true))
     }
   } catch (e) {
