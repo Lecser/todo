@@ -1,7 +1,6 @@
 import { AxiosResponse } from 'axios'
 import { instance } from '../../../axios'
 import { Iresponse } from '../../login/api/authAPI'
-import { TodosResponse } from '../../todos/api/todoAPI'
 
 export interface TasksResponse {
   items: Tasks[]
@@ -29,6 +28,12 @@ export interface UpdateTaskRequestPayload {
   priority?: number
   startDate?: string
   deadline?: string
+}
+
+export const enum TaskStatuses {
+  New = 0,
+  InProgress = 1,
+  Completed = 2
 }
 
 export const tasksAPI = {

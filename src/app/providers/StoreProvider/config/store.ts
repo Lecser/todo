@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import { authSlice } from '../../../features/login/authSlice'
-import { todoSlice } from '../../../features/todos/todoSlice'
-import { tasksSlice } from '../../../features/task/tasksSlice'
-import { appSlice } from '../../appSlice/appSlice'
+import { authSlice } from '../../../../features/login/authSlice'
+import { todoSlice } from '../../../../features/todos/todoSlice'
+import { tasksSlice } from '../../../../features/tasks/tasksSlice'
+import { appSlice } from '../../../appSlice'
 
 export const store = configureStore({
   reducer: {

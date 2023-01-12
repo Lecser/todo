@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { authAPI, ResultStatus } from '../../features/login/api/authAPI'
-import { setIsLoggedIn } from '../../features/login/authSlice'
-import { handleAsyncServerNetworkError } from '../../utils/error-utils'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { authAPI, ResultStatus } from '../features/login/api/authAPI'
+import { setIsLoggedIn } from '../features/login/authSlice'
+import { handleAsyncServerNetworkError } from '../utils/error-utils'
 import { AxiosError } from 'axios'
 
 interface Initial {
@@ -31,10 +31,17 @@ export const authMe = createAsyncThunk('app/authMe', async (_, thunkAPI) => {
 export const appSlice = createSlice({
   name: 'app',
   initialState,
-  reducers: {},
+  reducers: {
+    setAppStatus: (state, action: PayloadAction<RequestStatusType>) => {
+      state.status = action.payload
+    },
+    setError: (state, action: PayloadAction<string | null>) => {
+      state.error = action.payload
+    }
+  },
   extraReducers: builder =>
     builder.addCase(authMe.fulfilled, state => {
       state.isAuth = true
     })
 })
-export const {} = appSlice.actions
+export const { actions: appActions } = appSlice

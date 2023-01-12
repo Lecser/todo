@@ -1,42 +1,58 @@
 import { useEffect } from 'react'
-import { useAppDispatch } from '../../components/hooks/useAppDispatch'
 import { useAppSelector } from '../../components/hooks/useAppSelector'
 import { Todo } from './todo/Todo'
-import { addNewTodo, fetchTodos } from './todoSlice'
 import { EditableSpan } from '../../components/EditableSpan/EditableSpan'
+import { useActions } from '../../components/hooks/useActions'
+import { todosAsyncActions } from './asyncActions'
+import { getTodos } from './selectors/getTodos'
+import toast, { Toaster } from 'react-hot-toast'
 
 export const Todos = () => {
-  const dispatch = useAppDispatch()
-  const todos = useAppSelector(state => state.todo)
+  const todos = useAppSelector(getTodos)
+
+  const todosActions = useActions(todosAsyncActions)
 
   useEffect(() => {
-    dispatch(fetchTodos())
-  }, [dispatch])
+    todosActions.fetchTodos()
+  }, [])
 
   const addTodo = (title: string) => {
-    dispatch(addNewTodo(title))
+    todosActions.addNewTodo(title)
   }
 
+  const error = useAppSelector(state => state.app.error)
+  const appStatus = useAppSelector(state => state.app.status)
+  const notify = (message: string) => toast.error(message)
+  useEffect(() => {
+    if (appStatus === 'failed') error && notify(error)
+  }, [appStatus])
+
   return (
-    <div
-      className={
-        'h-screen w-screen bg-gradient-to-r from-green-400 via-lime-300 to-yellow-300'
-      }
-    >
+    <>
+      <Toaster position='bottom-left' reverseOrder={false} />
       <div
         className={
-          'container mx-auto  flex flex-wrap items-start gap-3 py-16 px-16'
+          'min-h-screen w-screen bg-gradient-to-r from-green-400 via-lime-300 to-yellow-300'
         }
       >
-        {todos.map(el => {
-          return <Todo key={el.id} title={el.title} todoId={el.id} />
-        })}
-        <div className={'h-8 w-44 rounded border shadow-md'}>
-          <EditableSpan viewMode={'Button'} onChange={value => addTodo(value)}>
-            Add new Todo
-          </EditableSpan>
+        <div
+          className={
+            'container mx-auto flex flex-wrap items-start gap-3 py-16 px-16'
+          }
+        >
+          {todos.map(el => {
+            return <Todo key={el.id} title={el.title} todoId={el.id} />
+          })}
+          <div className={'h-8 w-44 rounded border shadow-md'}>
+            <EditableSpan
+              viewMode={'Button'}
+              onChange={value => addTodo(value)}
+            >
+              Add new todo
+            </EditableSpan>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

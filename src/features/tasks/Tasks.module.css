@@ -1,0 +1,9 @@
+.task {
+    @apply relative mb-2 flex items-center justify-start break-all break-all rounded bg-neutral-100 p-1 pl-2 shadow transition duration-200 ease-in-out hover:cursor-pointer
+}
+.taskDoneStatus {
+    @apply bg-green-200 hover:bg-neutral-100
+}
+.taskInProgressStatus {
+    @apply bg-blue-200 hover:bg-neutral-100
+}

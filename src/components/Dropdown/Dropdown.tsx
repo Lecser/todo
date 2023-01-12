@@ -2,35 +2,53 @@ import { Menu, Transition } from '@headlessui/react'
 import { ReactComponent as DotsIcon } from '../../assets/Dots.svg'
 import { ReactComponent as TrashIcon } from '../../assets/Trash.svg'
 import { ReactComponent as PlusIcon } from '../../assets/Plus.svg'
+import { ReactComponent as DoneIcon } from '../../assets/DoneIcon.svg'
+import { ReactComponent as InProgressIcon } from '../../assets/InProggesIcon.svg'
 import { FC, Fragment } from 'react'
-import { useAppDispatch } from '../hooks/useAppDispatch'
-import { removeTodo } from '../../features/todos/todoSlice'
-import { addNewTask } from '../../features/task/tasksSlice'
+
+import { useActions } from '../hooks/useActions'
+import { tasksAsyncActions } from '../../features/tasks/asyncActions'
+import { todosAsyncActions } from '../../features/todos/asyncActions'
+import { TaskStatuses } from '../../features/tasks/api/tasksAPI'
 
 interface DropdownProps {
   todoId: string
+  viewMode: 'Todo' | 'Task'
+  taskId?: string
 }
 
 export const Dropdown: FC<DropdownProps> = props => {
-  const { todoId } = props
+  const { todoId, viewMode, taskId } = props
 
-  const dispatch = useAppDispatch()
+  const tasksActions = useActions(tasksAsyncActions)
+  const todosActions = useActions(todosAsyncActions)
 
   const onClickRemove = () => {
-    dispatch(removeTodo(todoId))
+    if (viewMode === 'Todo') {
+      todosActions.removeTodo(todoId)
+    } else taskId && tasksActions.removeTask({ todoId, taskId })
+  }
+
+  const updateTaskStatusHandler = (taskStatus: TaskStatuses) => {
+    if (taskId)
+      tasksActions.updateTaskTitle({
+        todoId,
+        taskId,
+        model: { status: taskStatus }
+      })
   }
 
   const onClickAddTask = () => {
-    dispatch(addNewTask({ todoId, title: 'New task' }))
+    tasksActions.addNewTask({ todoId, title: 'New tasks' })
   }
 
   return (
-    <div className={'flex items-center justify-center p-1.5'}>
-      <Menu as={'div'} className={'relative z-10 inline-block text-right'}>
-        <Menu.Button>
+    <div className={'flex items-center justify-center'}>
+      <Menu as={'div'} className={'relative z-30 inline-block text-right'}>
+        <Menu.Button as={'div'}>
           <DotsIcon
             className={
-              'h-6 w-6 rounded opacity-75 transition duration-200 ease-in-out hover:bg-neutral-100'
+              'h-6 w-6 rounded opacity-75 transition duration-200 ease-in-out'
             }
           />
         </Menu.Button>
@@ -48,32 +66,72 @@ export const Dropdown: FC<DropdownProps> = props => {
               'absolute w-32 origin-top-right divide-y divide-gray-100 rounded bg-white shadow ring-1 ring-black ring-opacity-5 focus:outline-none'
             }
           >
-            <Menu.Item>
-              {({ active }) => (
-                <li
-                  onClick={onClickAddTask}
-                  className={`flex cursor-pointer select-none list-none items-center justify-start p-1.5 ${
-                    active && 'bg-neutral-100'
-                  }`}
-                >
-                  <PlusIcon className={'h-5 w-5'} />
-                  <span className={'ml-1.5'}>Add Task</span>
-                </li>
+            {viewMode === 'Task' && (
+              <>
+                <div>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <li
+                        onClick={() =>
+                          updateTaskStatusHandler(TaskStatuses.Completed)
+                        }
+                        className={`flex cursor-pointer select-none list-none items-center justify-start p-1.5 ${
+                          active && 'bg-neutral-100'
+                        }`}
+                      >
+                        <DoneIcon className={'h-5 w-5'} />
+                        <span className={`ml-1.5`}>Done</span>
+                      </li>
+                    )}
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <li
+                        onClick={() =>
+                          updateTaskStatusHandler(TaskStatuses.InProgress)
+                        }
+                        className={`flex cursor-pointer select-none list-none items-center justify-start p-1.5 ${
+                          active && 'bg-neutral-100'
+                        }`}
+                      >
+                        <InProgressIcon className={'h-5 w-5'} />
+                        <span className={`ml-1.5`}>In progress</span>
+                      </li>
+                    )}
+                  </Menu.Item>
+                </div>
+              </>
+            )}
+            <div>
+              {viewMode === 'Todo' && (
+                <Menu.Item>
+                  {({ active }) => (
+                    <li
+                      onClick={onClickAddTask}
+                      className={`flex cursor-pointer select-none list-none items-center justify-start p-1.5 ${
+                        active && 'bg-neutral-100'
+                      }`}
+                    >
+                      <PlusIcon className={'h-5 w-5'} />
+                      <span className={'ml-1.5'}>Add Task</span>
+                    </li>
+                  )}
+                </Menu.Item>
               )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <li
-                  onClick={onClickRemove}
-                  className={`flex cursor-pointer select-none list-none items-center justify-start p-1.5 ${
-                    active && 'bg-neutral-100'
-                  }`}
-                >
-                  <TrashIcon className={'h-5 w-5'} />
-                  <span className={'ml-1.5'}>Delete</span>
-                </li>
-              )}
-            </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <li
+                    onClick={onClickRemove}
+                    className={`flex cursor-pointer select-none list-none items-center justify-start p-1.5 ${
+                      active && 'bg-neutral-100'
+                    }`}
+                  >
+                    <TrashIcon className={'h-5 w-5'} />
+                    <span className={'ml-1.5'}>Delete</span>
+                  </li>
+                )}
+              </Menu.Item>
+            </div>
           </Menu.Items>
         </Transition>
       </Menu>

@@ -1,7 +1,7 @@
 import { Iresponse } from '../features/login/api/authAPI'
 import { AxiosError } from 'axios'
 import { Dispatch } from '@reduxjs/toolkit'
-import { appActions } from '../app/CommonActions/CommonActions'
+import { appActions } from '../app/appSlice'
 
 type ThunkAPIType = {
   dispatch: Dispatch
@@ -15,12 +15,12 @@ export const handleAsyncServerAppError = <D>(
 ) => {
   if (showError) {
     thunkAPI.dispatch(
-      appActions.setAppError({
-        error: data.messages.length ? data.messages[0] : 'Some error occurred'
-      })
+      appActions.setError(
+        data.messages.length ? data.messages[0] : 'Some error occurred'
+      )
     )
   }
-  thunkAPI.dispatch(appActions.setAppStatus({ status: 'failed' }))
+  thunkAPI.dispatch(appActions.setAppStatus('failed'))
   return thunkAPI.rejectWithValue({
     errors: data.messages,
     fieldsErrors: data.fieldsErrors
@@ -34,12 +34,10 @@ export const handleAsyncServerNetworkError = (
 ) => {
   if (showError) {
     thunkAPI.dispatch(
-      appActions.setAppError({
-        error: error.message ? error.message : 'Some error occurred'
-      })
+      appActions.setError(error.message ? error.message : 'Some error occurred')
     )
   }
-  thunkAPI.dispatch(appActions.setAppStatus({ status: 'failed' }))
+  thunkAPI.dispatch(appActions.setAppStatus('failed'))
 
   return thunkAPI.rejectWithValue({
     errors: [error.message],

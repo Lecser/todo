@@ -1,12 +1,9 @@
-import { Todos } from './features/todos/Todos'
-import { Login } from './features/login/Login'
+import { useAppSelector } from './components/hooks/useAppSelector'
+import toast, { Toaster } from 'react-hot-toast'
+import { useEffect } from 'react'
 
 function App() {
-  return (
-    <div className='flex h-screen w-screen items-center justify-center bg-gray-50'>
-      <Todos />
-    </div>
-  )
+  return <div></div>
 }
 
 export default App
