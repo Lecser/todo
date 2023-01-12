@@ -1,11 +1,11 @@
 .penIcon {
-    @apply absolute bg-neutral-200 top-1 right-9 flex h-6 w-6 items-center justify-center rounded opacity-75 transition duration-200 ease-in-out hover:bg-neutral-300
+  @apply absolute top-1 right-9 flex h-6 w-6 items-center justify-center rounded bg-neutral-200 opacity-75 transition duration-200 ease-in-out hover:bg-neutral-300;
 }
 
 .trashIcon {
-    @apply absolute bg-neutral-200 top-1 right-2 flex h-6 w-6 items-center justify-center rounded opacity-75 transition duration-200 ease-in-out hover:bg-neutral-300
+  @apply absolute top-1 right-2 flex h-6 w-6 items-center justify-center rounded bg-neutral-200 opacity-75 transition duration-200 ease-in-out hover:bg-neutral-300;
 }
 
 .taskWrapper {
-    @apply break-all flex h-full w-full items-center justify-start rounded
+  @apply flex h-full w-full items-center justify-start break-all rounded;
 }
