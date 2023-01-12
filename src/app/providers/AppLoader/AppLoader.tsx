@@ -5,7 +5,6 @@ import { authMe } from '../../appSlice'
 
 export const AppLoader: FC<PropsWithChildren> = props => {
   const { children } = props
-  const [isAppLoading, setIsAppLoading] = useState(true)
 
   const dispatch = useAppDispatch()
 

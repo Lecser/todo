@@ -54,7 +54,9 @@ export const EditableSpan: FC<PropsWithChildren<AddItemFormProps>> = props => {
           {!inputMode ? (
             <h1
               onClick={editMode}
-              className={'w-full p-1 pl-2 font-bold hover:cursor-pointer'}
+              className={
+                'w-full break-all p-1 pl-2 font-bold hover:cursor-pointer'
+              }
             >
               {spanValue}
             </h1>

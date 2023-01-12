@@ -44,7 +44,7 @@ export const Tasks: FC<TaskProps> = props => {
         spanValue={title}
         status={status}
       />
-      <div className={'absolute right-1 rounded hover:bg-neutral-300'}>
+      <div className={'absolute right-1 z-20 rounded hover:bg-neutral-300'}>
         {visible && (
           <Dropdown taskId={taskId} todoId={todoId} viewMode={'Task'} />
         )}

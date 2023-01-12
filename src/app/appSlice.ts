@@ -40,6 +40,9 @@ export const appSlice = createSlice({
     setAppStatus: (state, action: PayloadAction<RequestStatusType>) => {
       state.status = action.payload
     },
+    setAuth: (state, action: PayloadAction<boolean>) => {
+      state.isAuth = action.payload
+    },
     setError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload
     }

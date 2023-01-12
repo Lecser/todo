@@ -4,6 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { TextField } from '../../components/TextField/TextField'
 import { useAppDispatch } from '../../components/hooks/useAppDispatch'
 import { loginUser } from './asyncActions'
+import { useAppSelector } from '../../components/hooks/useAppSelector'
+import { ErrorAlert } from '../../components/ErrorAlert/ErrorAlert'
 
 interface IForm {
   email: string
@@ -13,6 +15,7 @@ interface IForm {
 
 export const Login = () => {
   const dispatch = useAppDispatch()
+  const error = useAppSelector(state => state.app.error)
   const Schema = yup.object({
     email: yup
       .string()
@@ -35,15 +38,17 @@ export const Login = () => {
       password: '',
       rememberMe: false
     },
-    mode: 'all',
+    mode: 'onBlur',
     resolver: yupResolver(Schema)
   })
+
   const onSubmit = handleSubmit(async data => {
     dispatch(await loginUser(data))
   })
 
   return (
     <div className={'flex min-h-screen w-screen items-center justify-center'}>
+      {error && <ErrorAlert errorMessage={error} />}
       <form
         className={
           'flex h-80 w-80 flex-col items-center justify-center gap-5 rounded-2xl bg-white p-4 shadow-lg'

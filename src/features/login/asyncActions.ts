@@ -15,8 +15,9 @@ export const loginUser = createAsyncThunk(
     try {
       const res = await authAPI.loginUser(loginDataPayload)
       if (res.data.resultCode !== ResultStatus.OK) {
-        handleAsyncServerAppError(res.data, thunkAPI)
+        handleAsyncServerAppError(res.data, thunkAPI, true)
       } else {
+        thunkAPI.dispatch(appActions.setAuth(true))
         thunkAPI.dispatch(appActions.setAppStatus('succeeded'))
         thunkAPI.dispatch(setIsLoggedIn(true))
       }

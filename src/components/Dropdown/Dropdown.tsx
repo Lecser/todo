@@ -45,7 +45,7 @@ export const Dropdown: FC<DropdownProps> = props => {
   return (
     <div className={'flex items-center justify-center'}>
       <Menu as={'div'} className={'relative z-30 inline-block text-right'}>
-        <Menu.Button as={'div'}>
+        <Menu.Button className={'cursor-pointer'} as={'div'}>
           <DotsIcon
             className={
               'h-6 w-6 rounded opacity-75 transition duration-200 ease-in-out'

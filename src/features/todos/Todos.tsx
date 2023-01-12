@@ -6,6 +6,7 @@ import { useActions } from '../../components/hooks/useActions'
 import { todosAsyncActions } from './asyncActions'
 import { getTodos } from './selectors/getTodos'
 import toast, { Toaster } from 'react-hot-toast'
+import { ErrorAlert } from '../../components/ErrorAlert/ErrorAlert'
 
 export const Todos = () => {
   const todos = useAppSelector(getTodos)
@@ -21,15 +22,10 @@ export const Todos = () => {
   }
 
   const error = useAppSelector(state => state.app.error)
-  const appStatus = useAppSelector(state => state.app.status)
-  const notify = (message: string) => toast.error(message)
-  useEffect(() => {
-    if (appStatus === 'failed') error && notify(error)
-  }, [appStatus])
 
   return (
     <>
-      <Toaster position='bottom-left' reverseOrder={false} />
+      {error && <ErrorAlert errorMessage={error} />}
       <div
         className={
           'min-h-screen w-screen bg-gradient-to-r from-green-400 via-lime-300 to-yellow-300'
