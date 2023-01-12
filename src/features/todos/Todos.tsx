@@ -6,7 +6,6 @@ import { useActions } from '../../components/hooks/useActions'
 import { todosAsyncActions } from './asyncActions'
 import { getTodos } from './selectors/getTodos'
 import { ErrorAlert } from '../../components/ErrorAlert/ErrorAlert'
-import { getAppError } from '../../app/selectors/getAppError'
 
 export const Todos = () => {
   const todos = useAppSelector(getTodos)
@@ -21,8 +20,6 @@ export const Todos = () => {
     todosActions.addNewTodo(title)
   }
 
-  const error = useAppSelector(getAppError)
-
   return (
     <>
       <ErrorAlert />
@@ -32,7 +29,9 @@ export const Todos = () => {
         }
       >
         <div
-          className={'container mx-auto flex flex-wrap items-start gap-3 py-16'}
+          className={
+            'container mx-auto flex flex-wrap items-start gap-3 py-16 px-16 lg:px-0'
+          }
         >
           {todos.map(el => {
             return <Todo key={el.id} title={el.title} todoId={el.id} />

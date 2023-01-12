@@ -6,7 +6,6 @@ import { useAppDispatch } from '../../components/hooks/useAppDispatch'
 import { loginUser } from './asyncActions'
 import { useAppSelector } from '../../components/hooks/useAppSelector'
 import { ErrorAlert } from '../../components/ErrorAlert/ErrorAlert'
-import { getAppError } from '../../app/selectors/getAppError'
 import { getAppStatus } from '../../app/selectors/getAppStatus'
 import { PuffLoader } from 'react-spinners'
 
@@ -18,7 +17,6 @@ interface IForm {
 
 export const Login = () => {
   const dispatch = useAppDispatch()
-  const error = useAppSelector(getAppError)
   const appStatus = useAppSelector(getAppStatus)
 
   const Schema = yup.object({
