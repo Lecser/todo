@@ -30,7 +30,7 @@ export const Todos = () => {
       >
         <div
           className={
-            'container mx-auto flex flex-wrap items-start gap-3 py-16 px-16 lg:px-0'
+            'container mx-auto flex flex-wrap items-start gap-3 py-16 px-5 lg:px-0'
           }
         >
           {todos.map(el => {

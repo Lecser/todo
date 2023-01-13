@@ -33,7 +33,7 @@ export const Tasks: FC<TaskProps> = props => {
       ? classes.task + ' ' + classes.taskDoneStatus
       : classes.task + ' ' + classes.taskInProgressStatus
 
-  const [visible, setVisible] = useState(true)
+  const [visible, setVisible] = useState(false)
 
   return (
     <div

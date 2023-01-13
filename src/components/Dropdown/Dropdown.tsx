@@ -44,7 +44,7 @@ export const Dropdown: FC<DropdownProps> = props => {
 
   return (
     <div className={'flex items-center justify-center'}>
-      <Menu as={'div'} className={'relative z-30 inline-block text-right'}>
+      <Menu as={'div'} className={'relative inline-block text-right'}>
         <Menu.Button className={'cursor-pointer'} as={'div'}>
           <DotsIcon
             className={
@@ -63,7 +63,7 @@ export const Dropdown: FC<DropdownProps> = props => {
         >
           <Menu.Items
             className={
-              'absolute w-32 origin-top-right divide-y divide-gray-100 rounded bg-white shadow ring-1 ring-black ring-opacity-5 focus:outline-none'
+              'absolute z-30 w-32 origin-top-right divide-y divide-gray-100 rounded bg-white shadow ring-1 ring-black ring-opacity-5 focus:outline-none'
             }
           >
             {viewMode === 'Task' && (
