@@ -33,7 +33,7 @@ export const Tasks: FC<TaskProps> = props => {
       ? classes.task + ' ' + classes.taskDoneStatus
       : classes.task + ' ' + classes.taskInProgressStatus
 
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(true)
 
   return (
     <div
@@ -47,7 +47,7 @@ export const Tasks: FC<TaskProps> = props => {
         spanValue={title}
         status={status}
       />
-      <div className={'absolute right-1 z-20 rounded hover:bg-neutral-300'}>
+      <div className={'absolute right-1 rounded hover:bg-neutral-300'}>
         {visible && (
           <Dropdown taskId={taskId} todoId={todoId} viewMode={'Task'} />
         )}
