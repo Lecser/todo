@@ -1,0 +1,22 @@
+.form {
+  @apply flex h-80 w-80 flex-col items-center justify-center gap-5 rounded-2xl bg-white p-4 shadow-lg;
+}
+
+.formTitle {
+  @apply text-2xl font-bold;
+}
+.inputLabel {
+  @apply font-normal opacity-50;
+}
+.formBtn {
+  @apply flex h-8 w-28 items-center justify-center rounded-2xl bg-slate-700 text-white transition-opacity duration-500 ease-in-out hover:opacity-90;
+}
+.checkBoxWrapper {
+  @apply flex w-full items-center;
+}
+.checkBoxLabel {
+  @apply flex cursor-pointer items-center;
+}
+.checkBox {
+  @apply mr-2 h-4 w-4 cursor-pointer;
+}

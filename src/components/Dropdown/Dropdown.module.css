@@ -1,0 +1,19 @@
+.item {
+  @apply flex cursor-pointer select-none list-none items-center justify-start p-1.5;
+}
+
+.dropDownContainer {
+  @apply relative flex items-center justify-center text-right;
+}
+
+.itemsContainer {
+  @apply absolute z-30 w-32 origin-top-right divide-y divide-gray-100 rounded bg-white shadow ring-1 ring-black ring-opacity-5 focus:outline-none;
+}
+
+.btnWrapper {
+  @apply h-6 w-6 cursor-pointer rounded opacity-75 transition duration-200 ease-in-out hover:bg-neutral-300;
+}
+
+.icon {
+  @apply h-5 w-5;
+}

@@ -2,10 +2,13 @@ import { FC, useState } from 'react'
 import { EditableSpan } from '../../components/EditableSpan/EditableSpan'
 import { tasksAsyncActions } from './asyncActions'
 import { useActions } from '../../components/hooks/useActions'
-import { Dropdown } from '../../components/Dropdown/Dropdown'
+import { ReactComponent as DoneIcon } from '../../assets/DoneIcon.svg'
+import { ReactComponent as InProgressIcon } from '../../assets/InProggesIcon.svg'
+import { ReactComponent as TrashIcon } from '../../assets/Trash.svg'
 
 import classes from './Tasks.module.css'
 import { TaskStatuses } from './api/tasksModel'
+import { classNames } from '../../utils/classNames'
 
 interface TaskProps {
   title: string
@@ -26,14 +29,25 @@ export const Tasks: FC<TaskProps> = props => {
       model: { title: taskTitle }
     })
   }
-  const taskStatusColorMode =
-    status === TaskStatuses.New
-      ? classes.task + ' ' + 'hover:bg-neutral-200'
-      : status === TaskStatuses.Completed
-      ? classes.task + ' ' + classes.taskDoneStatus
-      : classes.task + ' ' + classes.taskInProgressStatus
+  const taskStatusColorMode = classNames(classes.task, {
+    [classes.taskDoneStatus]: status === TaskStatuses.Completed,
+    [classes.taskInProgressStatus]: status === TaskStatuses.InProgress
+  })
 
   const [visible, setVisible] = useState(false)
+
+  const updateTaskStatusHandler = (taskStatus: TaskStatuses) => {
+    if (taskId)
+      tasksActions.updateTaskTitle({
+        todoId,
+        taskId,
+        model: { status: taskStatus }
+      })
+  }
+
+  const onClickRemove = () => {
+    tasksActions.removeTask({ todoId, taskId })
+  }
 
   return (
     <div
@@ -47,9 +61,19 @@ export const Tasks: FC<TaskProps> = props => {
         spanValue={title}
         status={status}
       />
-      <div className={'absolute right-1 rounded hover:bg-neutral-300'}>
+      <div className={classes.iconsWrapper}>
         {visible && (
-          <Dropdown taskId={taskId} todoId={todoId} viewMode={'Task'} />
+          <>
+            <DoneIcon
+              onClick={() => updateTaskStatusHandler(TaskStatuses.Completed)}
+              className={classes.taskIcons}
+            />
+            <InProgressIcon
+              onClick={() => updateTaskStatusHandler(TaskStatuses.InProgress)}
+              className={classes.taskIcons}
+            />
+            <TrashIcon onClick={onClickRemove} className={classes.taskIcons} />
+          </>
         )}
       </div>
     </div>

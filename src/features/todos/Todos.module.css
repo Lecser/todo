@@ -1,0 +1,6 @@
+.todosContainer {
+  @apply container mx-auto flex flex-wrap items-start gap-3 py-16 px-5 lg:px-0;
+}
+.btnWrapper {
+  @apply h-8 w-44 rounded border shadow-md;
+}

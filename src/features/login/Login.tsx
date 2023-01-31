@@ -8,6 +8,7 @@ import { useAppSelector } from '../../components/hooks/useAppSelector'
 import { ErrorAlert } from '../../components/ErrorAlert/ErrorAlert'
 import { getAppStatus } from '../../app/selectors/getAppStatus'
 import { PuffLoader } from 'react-spinners'
+import classes from './Login.module.css'
 
 interface IForm {
   email: string
@@ -50,17 +51,12 @@ export const Login = () => {
   })
 
   return (
-    <div className={'flex min-h-screen w-screen items-center justify-center'}>
+    <>
       <ErrorAlert />
-      <form
-        className={
-          'flex h-80 w-80 flex-col items-center justify-center gap-5 rounded-2xl bg-white p-4 shadow-lg'
-        }
-        onSubmit={onSubmit}
-      >
-        <h1 className={'text-2xl font-bold'}>Sign in</h1>
+      <form className={classes.form} onSubmit={onSubmit}>
+        <h1 className={classes.formTitle}>Sign in</h1>
         <div className={'w-full'}>
-          <label className={'font-normal opacity-50'}>Email</label>
+          <label className={classes.inputLabel}>Email</label>
           <Controller
             name={'email'}
             control={control}
@@ -70,7 +66,7 @@ export const Login = () => {
           />
         </div>
         <div className={'w-full'}>
-          <label className={'font-normal opacity-50'}>Password</label>
+          <label className={classes.inputLabel}>Password</label>
           <Controller
             name={'password'}
             control={control}
@@ -83,21 +79,17 @@ export const Login = () => {
             )}
           />
         </div>
-        <div className={'flex w-full items-center'}>
-          <label className={'flex cursor-pointer items-center'}>
+        <div className={classes.checkBoxWrapper}>
+          <label className={classes.checkBoxLabel}>
             <input
               {...register('rememberMe')}
-              className={'mr-2 h-4 w-4 cursor-pointer'}
+              className={classes.checkBox}
               type='checkbox'
             />
-            <span className={'text-sm font-medium'}>Remember me</span>
+            <span className={'text-sm'}>Remember me</span>
           </label>
         </div>
-        <button
-          className={
-            'flex h-8 w-28 items-center justify-center rounded-2xl bg-slate-700 text-white transition-opacity duration-500 ease-in-out hover:opacity-90'
-          }
-        >
+        <button className={classes.formBtn}>
           {appStatus === 'loading' ? (
             <PuffLoader color={'white'} size={'26'} />
           ) : (
@@ -105,6 +97,6 @@ export const Login = () => {
           )}
         </button>
       </form>
-    </div>
+    </>
   )
 }

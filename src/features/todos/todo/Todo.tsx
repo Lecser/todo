@@ -46,10 +46,8 @@ export const Todo: FC<TodoProps> = props => {
           viewMode={'Title'}
           spanValue={title}
         />
-        <div
-          className={'flex h-6 w-6 items-center rounded hover:bg-neutral-300'}
-        >
-          <Dropdown viewMode={'Todo'} todoId={todoId} />
+        <div>
+          <Dropdown todoId={todoId} />
         </div>
       </div>
 

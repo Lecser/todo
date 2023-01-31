@@ -4,6 +4,8 @@ import { Login } from '../../../features/login/Login'
 import { RequiredAuth } from './config/RequiredAuth'
 import { Todos } from '../../../features/todos/Todos'
 import { RequiredNonAuth } from './config/RequiredNonAuth'
+import { TodosPage } from '../../../pages/TodosPage/TodosPage'
+import { LoginPage } from '../../../pages/LoginPage/LoginPage'
 
 export const enum AppPaths {
   'app' = '/',
@@ -16,7 +18,7 @@ const newRouter = createBrowserRouter([
     path: AppPaths.app,
     element: (
       <RequiredAuth>
-        <Todos />
+        <TodosPage />
       </RequiredAuth>
     )
   },
@@ -24,7 +26,7 @@ const newRouter = createBrowserRouter([
     path: AppPaths.loginPage,
     element: (
       <RequiredNonAuth>
-        <Login />
+        <LoginPage />
       </RequiredNonAuth>
     )
   },

@@ -11,6 +11,7 @@ import { ReactComponent as PlusIcon } from '../../assets/Plus.svg'
 import { ReactComponent as InProgressIcon } from '../../assets/InProggesIcon.svg'
 import { ReactComponent as DoneIcon } from '../../assets/DoneIcon.svg'
 import { TaskStatuses } from '../../features/tasks/api/tasksModel'
+import classes from './EditableSpan.module.css'
 
 interface AddItemFormProps {
   onChange: (value: string) => void
@@ -53,12 +54,7 @@ export const EditableSpan: FC<PropsWithChildren<AddItemFormProps>> = props => {
       {viewMode === 'Title' && (
         <>
           {!inputMode ? (
-            <h1
-              onClick={editMode}
-              className={
-                'w-full break-all p-1 pl-2 font-bold hover:cursor-pointer'
-              }
-            >
+            <h1 onClick={editMode} className={classes.title}>
               {spanValue}
             </h1>
           ) : (
@@ -76,10 +72,7 @@ export const EditableSpan: FC<PropsWithChildren<AddItemFormProps>> = props => {
       {viewMode === 'Task' && (
         <>
           {!inputMode ? (
-            <div
-              onDoubleClick={editMode}
-              className={'flex w-full items-center p-1 font-medium'}
-            >
+            <div onDoubleClick={editMode} className={classes.taskWrapper}>
               <span className={'z-0 pr-1'}>
                 {status === TaskStatuses.InProgress && <InProgressIcon />}
                 {status === TaskStatuses.Completed && <DoneIcon />}
@@ -88,9 +81,7 @@ export const EditableSpan: FC<PropsWithChildren<AddItemFormProps>> = props => {
             </div>
           ) : (
             <textarea
-              className={
-                'z-40 w-full resize-none overflow-hidden rounded border p-1 pl-2 shadow outline-none'
-              }
+              className={classes.textArea}
               onChange={onChangeInputValue}
               value={inputValue}
               autoFocus
@@ -104,12 +95,7 @@ export const EditableSpan: FC<PropsWithChildren<AddItemFormProps>> = props => {
       {viewMode === 'Button' && (
         <>
           {!inputMode ? (
-            <div
-              onClick={editMode}
-              className={
-                'flex h-8 w-full items-center justify-start rounded bg-white pl-2.5 transition duration-200 ease-in-out hover:cursor-pointer hover:bg-neutral-100'
-              }
-            >
+            <div onClick={editMode} className={classes.btn}>
               <PlusIcon className={'mr-1 h-4 w-4'} />
               {children}
             </div>

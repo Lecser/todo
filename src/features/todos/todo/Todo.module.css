@@ -1,5 +1,5 @@
 .titleWrapper {
-  @apply flex h-10 h-full justify-between;
+  @apply mb-1.5 flex h-10 h-full justify-between;
 }
 
 .todoContainer {
