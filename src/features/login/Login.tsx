@@ -38,9 +38,9 @@ export const Login = () => {
     formState: { errors }
   } = useForm<IForm>({
     defaultValues: {
-      email: '',
-      password: '',
-      rememberMe: false
+      email: 'free@samuraijs.com',
+      password: 'free',
+      rememberMe: true
     },
     mode: 'onBlur',
     resolver: yupResolver(Schema)
