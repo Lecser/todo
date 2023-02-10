@@ -31,7 +31,7 @@ export const EditableSpan: FC<PropsWithChildren<AddItemFormProps>> = props => {
   }
   const btnMode = () => {
     setInputMode(false)
-    if (inputValue !== spanValue) onChange(inputValue)
+    if (inputValue !== spanValue) inputValue && onChange(inputValue)
     setInputValue('')
   }
 
